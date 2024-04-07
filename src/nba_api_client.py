@@ -12,7 +12,10 @@ async def get_lineups_by_team(team_id):
     try:
         logging.debug('Fetching lineup for team_id: %s', team_id)
         team_id_int = int(team_id)
-        data = leaguedashlineups.LeagueDashLineups(team_id_nullable=team_id_int).get_data_frames()[0]
+        data = leaguedashlineups.LeagueDashLineups(
+            team_id_nullable=team_id_int,
+            measure_type_detailed_defense='Advanced'
+        ).get_data_frames()[0]
         logging.debug('Data fetched successfully')
         return data.to_dict('records')
     except ValueError as e:
