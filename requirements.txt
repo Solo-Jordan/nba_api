@@ -3,3 +3,4 @@ httpx
 nba_api
 uvicorn
 pandas
+python-multipart
