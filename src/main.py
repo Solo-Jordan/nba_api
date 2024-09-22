@@ -1,5 +1,5 @@
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
 from nba_api_client import get_lineups_by_team
 from sms import print_message
 
@@ -19,6 +19,7 @@ async def ping():
 
 
 @app.post("/sms")
-async def sms(message: dict):
-    print_message(message)
+async def sms(Body: str = Form(...), From: str = Form(...), **kwargs):
+    print(f"Received message: {Body}")
+    print(f"From number: {From}")
     return {"message": "Message received."}
