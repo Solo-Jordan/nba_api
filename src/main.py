@@ -1,7 +1,8 @@
 import logging
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Request
 from nba_api_client import get_lineups_by_team
 from sms import print_message
+from fastapi.responses import JSONResponse
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -19,7 +20,15 @@ async def ping():
 
 
 @app.post("/sms")
-async def sms(Body: str = Form(...), From: str = Form(...), **kwargs):
-    print(f"Received message: {Body}")
-    print(f"From number: {From}")
-    return {"message": "Message received."}
+async def sms(request: Request):
+    form_data = await request.form()
+    body = form_data.get("Body", "")
+    from_number = form_data.get("From", "")
+
+    print(f"Received message: {body}")
+    print(f"From number: {from_number}")
+
+    # You can access other parameters as needed
+    # For example: to_country = form_data.get("ToCountry")
+
+    return JSONResponse(content={"message": "Message received."}, status_code=200)
