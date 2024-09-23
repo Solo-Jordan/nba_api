@@ -20,15 +20,8 @@ async def ping():
 
 
 @app.post("/sms")
-async def sms(request: Request):
-    form_data = await request.form()
-    body = form_data.get("Body", "")
-    from_number = form_data.get("From", "")
-
-    print(f"Received message: {body}")
-    print(f"From number: {from_number}")
-
-    # You can access other parameters as needed
-    # For example: to_country = form_data.get("ToCountry")
+async def sms(data: dict):
+    print(f"Received SMS: {data['data']['payload']['text']}")
+    print(f"From: {data['data']['payload']['from']['phone_number']}")
 
     return JSONResponse(content={"message": "Message received."}, status_code=200)
