@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 logging.basicConfig(level=logging.DEBUG)
 
-app = FastAPI()
+app = FastAPI(redirect_slashes=False)
 
 
 @app.get("/get_lineups/{team_id}")
