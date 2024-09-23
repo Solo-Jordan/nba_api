@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 logging.basicConfig(level=logging.DEBUG)
 
-app = FastAPI(redirect_slashes=False)
+app = FastAPI()
 
 
 @app.get("/get_lineups/{team_id}")
@@ -19,7 +19,7 @@ async def ping():
     return {"message": "pong"}
 
 
-@app.post("/sms")
+@app.post("/sms/")
 async def sms(data: dict):
     print(f"Received SMS: {data['data']['payload']['text']}")
     print(f"From: {data['data']['payload']['from']['phone_number']}")
