@@ -1,3 +1,5 @@
+import json
+
 from pika import BlockingConnection, URLParameters
 
 
@@ -21,7 +23,7 @@ def forward_message(from_user: str, message: str):
         "message": message
     }
 
-    channel.basic_publish(exchange='ai', routing_key="ai.tlc", body=str(message))
+    channel.basic_publish(exchange='ai', routing_key="ai.tlc", body=json.dumps(message))
 
     connection.close()
 
