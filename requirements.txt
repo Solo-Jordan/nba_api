@@ -5,3 +5,5 @@ uvicorn
 pandas
 python-multipart
 pika
+pymongo
+python-dotenv
