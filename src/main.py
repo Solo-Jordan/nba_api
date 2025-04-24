@@ -23,6 +23,7 @@ async def ping():
 async def sms(data: dict):
     logging.info(f"Received SMS: {data['data']['payload']['text']}")
     logging.info(f"From: {data['data']['payload']['from']['phone_number']}")
-    forward_message(data['data']['payload']['from']['phone_number'], data['data']['payload']['text'])
+    if data['data']['payload']['from']['phone_number'] != "+13196694597":
+        forward_message(data['data']['payload']['from']['phone_number'], data['data']['payload']['text'])
 
     return JSONResponse(content={"message": "Message received."}, status_code=200)
